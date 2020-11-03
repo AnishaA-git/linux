@@ -6110,18 +6110,7 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 
 	if (exit_fastpath != EXIT_FASTPATH_NONE)
 		return 1;
-
-	//to find the number of exits and time taken
-        if(exit_reason < kvm_vmx_max_exit_handlers) {
-
-                result = kvm_vmx_exit_handlers[exit_reason](vcpu);
-                end_time = __builtin_ia32_rdtsc();
-                delta = end_time - start_time;
-                atomic64_add(delta,&total_cycles);
-
-                return result;
-        }
-
+	
          if (exit_reason >= kvm_vmx_max_exit_handlers)
                 goto unexpected_vmexit;
 #ifdef CONFIG_RETPOLINE
@@ -6143,8 +6132,15 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 					 kvm_vmx_max_exit_handlers);
 	if (!kvm_vmx_exit_handlers[exit_reason])
 		goto unexpected_vmexit;
+	else{
+		//to find the time taken
+		result = kvm_vmx_exit_handlers[exit_reason](vcpu);
+                end_time = __builtin_ia32_rdtsc();
+                delta = end_time - start_time;
+                atomic64_add(delta,&total_cycles);
 
-	return kvm_vmx_exit_handlers[exit_reason](vcpu);
+                return result;
+	}
 
 unexpected_vmexit:
 	vcpu_unimpl(vcpu, "vmx: unexpected exit reason 0x%x\n", exit_reason);
