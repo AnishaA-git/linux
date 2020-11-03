@@ -1100,9 +1100,9 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
                 printk(KERN_INFO "exit count: %d\n",atomic_read(&exit_count));
 
                 ebx  = hi;
-                printk(KERN_INFO "HI: %d\n", hi);
+                //printk(KERN_INFO "HI: %d\n", hi);
                 ecx = low;
-                printk(KERN_INFO "LOW: %d\n", low);
+                //printk(KERN_INFO "LOW: %d\n", low);
 
                 printk("Total Cycles: %lld\n", tcycles);
         }
