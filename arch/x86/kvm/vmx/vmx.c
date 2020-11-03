@@ -64,6 +64,10 @@
 #include "vmx.h"
 #include "x86.h"
 
+extern atomic_t exit_count;
+extern atomic64_t total_cycles;
+
+
 MODULE_AUTHOR("Qumranet");
 MODULE_LICENSE("GPL");
 
@@ -5991,6 +5995,13 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	u32 exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 
+	//defining start and end time
+        uint32_t result;
+        uint64_t start_time, end_time, delta;
+        //exit counts
+        atomic_inc(&exit_count);
+        start_time = __builtin_ia32_rdtsc();
+
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
 	 * updated. Another good is, in kvm_vm_ioctl_get_dirty_log, before
@@ -6100,8 +6111,19 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 	if (exit_fastpath != EXIT_FASTPATH_NONE)
 		return 1;
 
-	if (exit_reason >= kvm_vmx_max_exit_handlers)
-		goto unexpected_vmexit;
+	//to find the number of exits and time taken
+        if(exit_reason < kvm_vmx_max_exit_handlers) {
+
+                result = kvm_vmx_exit_handlers[exit_reason](vcpu);
+                end_time = __builtin_ia32_rdtsc();
+                delta = end_time - start_time;
+                atomic64_add(delta,&total_cycles);
+
+                return result;
+        }
+
+         if (exit_reason >= kvm_vmx_max_exit_handlers)
+                goto unexpected_vmexit;
 #ifdef CONFIG_RETPOLINE
 	if (exit_reason == EXIT_REASON_MSR_WRITE)
 		return kvm_emulate_wrmsr(vcpu);

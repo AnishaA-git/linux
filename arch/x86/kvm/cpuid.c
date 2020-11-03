@@ -23,6 +23,12 @@
 #include "mmu.h"
 #include "trace.h"
 #include "pmu.h"
+#include <linux/kernel.h>
+
+atomic_t exit_count = ATOMIC_INIT(0);
+atomic64_t total_cycles = ATOMIC_INIT(0);
+EXPORT_SYMBOL(exit_count);
+EXPORT_SYMBOL(total_cycles);
 
 /*
  * Unlike "struct cpuinfo_x86.x86_capability", kvm_cpu_caps doesn't need to be
@@ -1074,14 +1080,36 @@ EXPORT_SYMBOL_GPL(kvm_cpuid);
 
 int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 {
-	u32 eax, ebx, ecx, edx;
+        uint32_t eax, ebx, ecx, edx;
+        uint64_t tcycles;
 
-	if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
-		return 1;
+        if (cpuid_fault_enabled(vcpu) && !kvm_require_cpl(vcpu, 0))
+                return 1;
 
-	eax = kvm_rax_read(vcpu);
-	ecx = kvm_rcx_read(vcpu);
-	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
+        eax = kvm_rax_read(vcpu);
+        ecx = kvm_rcx_read(vcpu);
+
+        //shifting performed for ebx and ecx
+        if(eax == 0x4FFFFFFF) {
+                uint32_t hi,low;
+                hi =(uint32_t) ((atomic64_read(&total_cycles) & 0xFFFFFFFF00000000LL) >> 32);
+                low =(uint32_t) (atomic64_read(&total_cycles) & 0xFFFFFFFFLL);
+                tcycles = atomic64_read(&total_cycles);
+
+                eax = atomic_read(&exit_count);
+                printk(KERN_INFO "exit count: %d\n",atomic_read(&exit_count));
+
+                ebx  = hi;
+                printk(KERN_INFO "HI: %d\n", hi);
+                ecx = low;
+                printk(KERN_INFO "LOW: %d\n", low);
+
+                printk("Total Cycles: %lld\n", tcycles);
+        }
+        else {
+                kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
+        }
+
 	kvm_rax_write(vcpu, eax);
 	kvm_rbx_write(vcpu, ebx);
 	kvm_rcx_write(vcpu, ecx);
