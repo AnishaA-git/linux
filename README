@@ -3,15 +3,15 @@ Anisha Agarwal:
 •	Did the setup on mac OS using external hard disk.
 •	Researched on how to calculate the clock cycles during exit.
 •	Researched on where to place the code for clock cycles.
-•	Implemented the code for clock cycles.
-•	Compile and test the code
+•	Researched and analyzed on the behaviour of exits for question-3.
+•	Implemented the code for clock cycles. Compile and test the code.
 
 Jeena Thampi:
 •	Did the setup on mac OS.
 •	Researched on atomic variable and how to use them in the code.
 •	Researched on where to place and implemented the code to calculate total number of exits.
 •	Researched on how to extract high and low bits.
-•	Compile and test the code
+•	Compile and test the code.
 
 2.	Steps adopted to complete the assignment
 a)	Install virt-manager
