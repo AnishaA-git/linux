@@ -1,3 +1,66 @@
+1.	Individual Contributions
+Anisha Agarwal:
+•	Did the setup on mac OS using external hard disk.
+•	Researched on how to calculate the clock cycles during exit.
+•	Researched on where to place the code for clock cycles.
+•	Researched and analyzed on the behaviour of exits for question-3.
+•	Implemented the code for clock cycles. Compile, test and debug the code.
+
+Jeena Thampi:
+•	Did the setup on mac OS.
+•	Researched on atomic variable and how to use them in the code.
+•	Researched on where to place and implemented the code to calculate total number of exits.
+•	Researched on how to extract high and low bits.
+•	Compile, test and debug the code.
+
+2.	Steps adopted to complete the assignment
+a)	Install virt-manager
+b)	Created the inner VM by following the steps in virt manager for testing
+c)	Did the following to build kernel
+    a.	sudo bash
+    b.	apt-get install build-essential kernel-package fakeroot libncurses5-dev libssl-dev ccache bison flex libelf-dev
+    c.	uname -a 
+    d.	cp /boot/config-5.4.52-generic ./.config 
+    e.	make oldconfig 
+    f.	make && make modules && make install && make modules_install 
+    g.	Reboot
+d)	Fixed the error after reboot : “UUID does not exist” by doing the following steps
+    a.	From GRUB menu selected the older version and booted the system
+    b.	Sudo apt-get clean
+    c.	Df -h to make sure filesystems on disk are not 100%
+    d.	sudo update-initramfs -k 5.9.0+ -u
+    e.	Reboot again
+e)	Get the inner VM ready to test by following the below steps
+    a.	sudo apt-get install cpuid
+    b.	If it says E: Unable to locate package cpuid, then do the following
+    c.	Check if package is available for the ubuntu version
+    d.	Run the below command to get the codename
+        i.	lsb_release -a
+        ii.	ubuntu@ubuntu:~$ lsb_release -a
+        iii.	No LSB modules are available.
+        iv.	Distributor ID:        Ubuntu
+        v.	Description:        Ubuntu 20.04.1 LTS
+        vi.	Release:        20.04
+        vii.	Codename:        focal
+
+    e.	Check in there if package is available and in which repository
+    f.	https://packages.ubuntu.com/search?keywords=cpuid&searchon=names&suite=focal&section=all
+
+    g.	sudo add-apt-repository “repository name”
+    h.	sudo apt-get update
+    i.	sudo apt-get install cupid
+
+3.	Questions
+    a.	Does the number of exits increase at a stable rate?
+       No, the number of exits does not increase at a stable rate, however they increase randomly.
+    b.	Are there more exits performed during certain VM operations?
+       Yes, more exits are performed during certain VM operations like opening a browser or opening a file or performing any other operations. 
+    c.	Approximately how many exits does a full VM boot entail?
+       Approximately ~1000000 many exits are performed during a full VM boot entail, which is calculated by taking the difference between number of exits before and after the reboot.
+
+
+
+
 Linux kernel
 ============
 
