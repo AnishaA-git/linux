@@ -5989,6 +5989,7 @@ void dump_vmcs(void)
  * The guest has exited.  See if we can fix it or if we need userspace
  * assistance.
  */
+extern atomic_t exit_number_count[];
 static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 {
 	struct vcpu_vmx *vmx = to_vmx(vcpu);
@@ -6000,6 +6001,7 @@ static int vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
         uint64_t start_time, end_time, delta;
         //exit counts
         atomic_inc(&exit_count);
+	atomic_inc(&exit_number_count[exit_reason]);
         start_time = __builtin_ia32_rdtsc();
 
 	/*
