@@ -10,13 +10,13 @@ Jeena Thampi:
 •   Analyzed the test results, and as per the expectations the number of exits increased when switched from nested to shadow paging.
 
 *  Include a sample of your print of exit count output from dmesg from “with ept” and “without ept”.
-
+- **Shadow Paging1**
 ![Shadow Paging1](https://user-images.githubusercontent.com/70603792/101979271-944ab780-3c10-11eb-88b8-b7b8c0a956d6.png)
-
+- **Shadow Paging2**
 ![Shadow Paging2](https://user-images.githubusercontent.com/70603792/101979275-990f6b80-3c10-11eb-8b43-f5768d0f18c3.png)
-
+- **Nested Paging1**
 ![Nested Paging1](https://user-images.githubusercontent.com/70603792/101979280-9b71c580-3c10-11eb-8eaa-733b1aac42f1.png)
-
+- **Nested Paging2**
 ![Nested Paging2](https://user-images.githubusercontent.com/70603792/101979282-9d3b8900-3c10-11eb-96be-a93b0a163bec.png)
 
 *  What did you learn from the count of exits? Was the count what you expected? If not, why not?
