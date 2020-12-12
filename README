@@ -1,3 +1,57 @@
+## ASSIGNMENT-3
+
+1.	Individual Contributions
+Anisha Agarwal:
+•	Used the setup of assignment-2, after creating a new leafnode of 0x4FFFFFFE analyzed the frequency of exits. 
+•   Analyzed if the exits were increased while performing VM operation.
+•   Analyzed the different exit types and which were least and most frequent among them.
+
+Jeena Thampi:
+•   Implemented the code for assignment 3, analyzed where to add the code for creating a new leafnode of 0x4FFFFFFE.
+•   Researched and analyzed where to add the coonditions to fulfill the requirement of assignment-3.
+•   Compiled, test and debugged the code to get the desired output.
+
+2.	Steps adopted to complete the assignment
+a)	Install virt-manager
+b)	Created the inner VM by following the steps in virt manager for testing
+c)	Did the following to build kernel
+    a.	sudo bash
+    b.	make && make modules && make install && make modules_install 
+    c.	Reboot
+    
+d)	Get the inner VM ready to test by following the below steps
+    a.	sudo apt-get install cpuid
+    b.	If it says E: Unable to locate package cpuid, then do the following
+    c.	Check if package is available for the ubuntu version
+    d.	Run the below command to get the codename
+        i.	lsb_release -a
+        ii.	ubuntu@ubuntu:~$ lsb_release -a
+        iii.	No LSB modules are available.
+        iv.	Distributor ID:        Ubuntu
+        v.	Description:        Ubuntu 20.04.1 LTS
+        vi.	Release:        20.04
+        vii.	Codename:        focal
+    e.	Check in there if package is available and in which repository
+    f.	https://packages.ubuntu.com/search?keywords=cpuid&searchon=names&suite=focal&section=all
+
+    g.	sudo add-apt-repository “repository name”
+    h.	sudo apt-get update
+    i.	sudo apt-get install cupid
+    
+3.	Questions
+    a.	Does the number of exits increase at a stable rate?
+        No, the number of exits does not increase at a stable rate, however they increase randomly.
+    b.	Are there more exits performed during certain VM operations?
+        Yes, more exits are performed during certain VM operations like opening a browser or opening a file or performing any other operations. 
+    c.	Approximately how many exits does a full VM boot entail?
+        Approximately ~1000000 many exits are performed during a full VM boot entail, which is calculated by taking the difference between number of exits before and after the reboot.
+        
+4.  Of the exit types defined in the SDM, which are the most frequent? Least?
+    a.  Frequent: EPT violation, exit reason 48 is the most frequent exit occured.
+    b.  Least: MOV DR, exit reason 29 and Access to LDTR or TR, exit reason 47 are the most least exits occured.
+
+## ASSIGNMENT-2
+
 1.	Individual Contributions
 Anisha Agarwal:
 •	Did the setup on mac OS using external hard disk.
