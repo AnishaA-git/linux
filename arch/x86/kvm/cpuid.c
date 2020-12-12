@@ -1114,16 +1114,23 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 			ebx = 0x00000000;
 			ecx = 0x00000000;
 			edx = 0xFFFFFFFF;
-		}else if(ecx == 3||ecx == 4||ecx == 5||ecx == 6||ecx == 11||ecx == 16||ecx == 17||ecx == 33||ecx == 34||ecx == 51||ecx == 63||ecx == 64||ecx == 66||ecx == 67||ecx == 68){
+		}
+		else if(ecx == 3||ecx == 4||ecx == 5||ecx == 6||ecx == 11||ecx == 16||ecx == 17||ecx == 33||ecx == 34||ecx == 51||ecx == 63||ecx == 64||ecx == 66||ecx == 67||ecx == 68){
 			eax = 0x00000000;
                         ebx = 0x00000000;
                         ecx = 0x00000000;
                         edx = 0x00000000;
 		}
-		else{
+		else if(ecx==0||ecx==1||ecx==2||ecx==7||ecx==8||ecx==9||ecx==10||ecx==12||ecx==13||ecx==14||ecx==15||ecx==18||ecx==19||ecx==20||ecx==21||ecx==22||ecx==23||ecx==24||ecx==25||ecx==26||ecx==27||ecx==28||ecx==29||ecx==30||ecx==31||ecx==32||ecx==36||ecx==37||ecx==39||ecx==40||ecx==41||ecx==43||ecx==44||ecx==45||ecx==46||ecx==47||ecx==48||ecx==49||ecx==50||ecx==52||ecx==53||ecx==54||ecx==55||ecx==56||ecx==57||ecx==58||ecx==59||ecx==60||ecx==61||ecx==62){
 			eax = atomic_read(&exit_number_count[ecx]);
                 	specific_count = atomic_read(&exit_number_count[ecx]);
                 	printk(KERN_INFO "exit number %d exits= %d\n",ecx,specific_count);	
+		}
+		else{
+			eax = 0x00000000;
+                        ebx = 0x00000000;
+                        ecx = 0x00000000;
+                        edx = 0x00000000;
 		}
 	}
         else {
