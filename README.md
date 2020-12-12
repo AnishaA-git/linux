@@ -2,8 +2,8 @@
 
 1.	Individual Contributions
 Anisha Agarwal:
-•   Analyzed the behaviour of exits after disabling the nested paging.
-•   Analyzed the changes between the two runs that is ept vs no ept.
+1.  Analyzed the behaviour of exits after disabling the nested paging.
+2.  Analyzed the changes between the two runs that is ept vs no ept.
 
 Jeena Thampi:
 •   Implemented the commands as given for assignment-4, so that kvm uses shadow paging instead of nested paging.
