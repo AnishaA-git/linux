@@ -1,15 +1,15 @@
 #   ASSIGNMENT-4
 
-1.	Individual Contributions
+*	Individual Contributions
 Anisha Agarwal:
-1.  Analyzed the behaviour of exits after disabling the nested paging.
-2.  Analyzed the changes between the two runs that is ept vs no ept.
+•  Analyzed the behaviour of exits after disabling the nested paging.
+•  Analyzed the changes between the two runs that is ept vs no ept.
 
 Jeena Thampi:
 •   Implemented the commands as given for assignment-4, so that kvm uses shadow paging instead of nested paging.
 •   Analyzed the test results, and as per the expectations the number of exits increased when switched from nested to shadow paging.
 
-2.  Include a sample of your print of exit count output from dmesg from “with ept” and “without ept”.
+*  Include a sample of your print of exit count output from dmesg from “with ept” and “without ept”.
 
 ![Shadow Paging1](https://user-images.githubusercontent.com/70603792/101979271-944ab780-3c10-11eb-88b8-b7b8c0a956d6.png)
 
@@ -19,12 +19,12 @@ Jeena Thampi:
 
 ![Nested Paging2](https://user-images.githubusercontent.com/70603792/101979282-9d3b8900-3c10-11eb-96be-a93b0a163bec.png)
 
-3.  What did you learn from the count of exits? Was the count what you expected? If not, why not?
+*  What did you learn from the count of exits? Was the count what you expected? If not, why not?
     •   The count of exits increased when the EPT was set to 0 which means when we forced the kvm to use shadow paging instead of nested paging.
     •   As per the class understanding of nested and shadow paging, the expectations was that there should be an increase in exit counts as shadow 
         paging involves more number of exits then nested paging. And the count was increased as expected.
 
-4.  What changed between the two runs (ept vs no-ept)?
+*  What changed between the two runs (ept vs no-ept)?
     •   There are 2 exits, INVLPG, exit reason = 14 and INVPCID, exit reason = 58, which happens in shadow paging and is 0 in nested paging.
     •   As a result: With EPT the kvm works as per nested paging and thus the exits are lesser. Without EPT the kvm is forced to work as per shadow paging and gives an 
         increase in exits
@@ -33,7 +33,7 @@ Jeena Thampi:
 
 #   ASSIGNMENT-3
 
-1.	Individual Contributions
+*	Individual Contributions
 Anisha Agarwal:
 •	Used the setup of assignment-2, after creating a new leafnode of 0x4FFFFFFE analyzed the frequency of exits. 
 •   Analyzed if the exits were increased while performing VM operation.
@@ -44,7 +44,7 @@ Jeena Thampi:
 •   Researched and analyzed where to add the coonditions to fulfill the requirement of assignment-3.
 •   Compiled, test and debugged the code to get the desired output.
 
-2.	Steps adopted to complete the assignment
+*	Steps adopted to complete the assignment
 a)	Install virt-manager
 b)	Created the inner VM by following the steps in virt manager for testing
 c)	Did the following to build kernel
@@ -71,7 +71,7 @@ d)	Get the inner VM ready to test by following the below steps
     h.	sudo apt-get update
     i.	sudo apt-get install cupid
     
-3.	Questions
+*	Questions
     a.	Does the number of exits increase at a stable rate?
         No, the number of exits does not increase at a stable rate, however they increase randomly.
     b.	Are there more exits performed during certain VM operations?
@@ -79,7 +79,7 @@ d)	Get the inner VM ready to test by following the below steps
     c.	Approximately how many exits does a full VM boot entail?
         Approximately ~1000000 many exits are performed during a full VM boot entail, which is calculated by taking the difference between number of exits before and after the reboot.
         
-4.  Of the exit types defined in the SDM, which are the most frequent? Least?
+*  Of the exit types defined in the SDM, which are the most frequent? Least?
     a.  Frequent: EPT violation, exit reason 48 is the most frequent exit occured.
     b.  Least: MOV DR, exit reason 29 and Access to LDTR or TR, exit reason 47 are the most least exits occured.
 
