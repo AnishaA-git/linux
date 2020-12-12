@@ -1,3 +1,29 @@
+#   ASSIGNMENT-4
+
+1.	Individual Contributions
+Anisha Agarwal:
+•   Analyzed the behaviour of exits after disabling the nested paging.
+•   Analyzed the changes between the two runs that is ept vs no ept.
+
+Jeena Thampi:
+•   Implemented the commands as given for assignment-4, so that kvm uses shadow paging instead of nested paging.
+•   Analyzed the test results, and as per the expectations the number of exits increased when switched from nested to shadow paging.
+
+2.  Include a sample of your print of exit count output from dmesg from “with ept” and “without ept”.
+
+
+3.  What did you learn from the count of exits? Was the count what you expected? If not, why not?
+    •   The count of exits increased when the EPT was set to 0 which means when we forced the kvm to use shadow paging instead of nested paging.
+    •   As per the class understanding of nested and shadow paging, the expectations was that there should be an increase in exit counts as shadow 
+        paging involves more number of exits then nested paging. And the count was increased as expected.
+
+4.  What changed between the two runs (ept vs no-ept)?
+    •   There are 2 exits, INVLPG, exit reason = 14 and INVPCID, exit reason = 58, which happens in shadow paging and is 0 in nested paging.
+    •   As a result: With EPT the kvm works as per nested paging and thus the exits are lesser. Without EPT the kvm is forced to work as per shadow paging and gives an 
+        increase in exits
+
+
+
 #   ASSIGNMENT-3
 
 1.	Individual Contributions
@@ -111,8 +137,6 @@ e)	Get the inner VM ready to test by following the below steps
        Yes, more exits are performed during certain VM operations like opening a browser or opening a file or performing any other operations. 
     c.	Approximately how many exits does a full VM boot entail?
        Approximately ~1000000 many exits are performed during a full VM boot entail, which is calculated by taking the difference between number of exits before and after the reboot.
-
-
 
 
 Linux kernel
